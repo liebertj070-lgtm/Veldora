@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-obsidian: #171717;
+  --color-obsidian-deep: #0e0e0e;
+  --color-bone: #e9e6df;
+  --color-bone-light: #f2efe9;
+  --color-stone: #a6a39a;
+  --color-sage: #b8c7a6;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #e9e6df;
+    color: #171717;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #52504a #e9e6df;
+    caret-color: #171717;
+  }
+
+  /* Custom browser scrollbars matched to palette */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #e9e6df;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #a6a39a;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #52504a;
+  }
+
+  /* Typography wrap & optical discipline */
+  h1,
+  h2,
+  h3,
+  .font-editorial {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+  }
+
+  input,
+  textarea {
+    caret-color: currentColor;
+  }
+
+  /* High-visibility keyboard focus ring */
+  :focus-visible {
+    outline: 2px solid #b8c7a6;
+    outline-offset: 2px;
+  }
+}
+
+/* Dark surface optical compensation for light body prose */
+.dark-prose {
+  letter-spacing: 0.01em;
+  line-height: 1.65;
+}
+
+/* Subtle photographic film grain overlay using pure CSS SVG noise */
+.film-grain {
+  position: relative;
+}
+
+.film-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  contain: strict;
+  transform: translateZ(0);
+  z-index: 2;
+}
+
+/* Tabular numbers for prices, SKUs, and counts */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hide scrollbars cleanly on horizontal lookbook rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hover preview settle rule (delay on enter, instant on leave) */
+.hover-reveal-bar {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0ms;
+}
+
+.group:hover .hover-reveal-bar,
+.group:focus-within .hover-reveal-bar {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 60ms;
+}
+
+/* Rotating circular editorial stamp animation */
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-slow-spin {
+  animation: slow-spin 24s linear infinite;
+}
+
+/* Continuous kinetic editorial marquee */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 34s linear infinite;
+}
+
+.marquee-wrap:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Respect reduced motion while preserving meaningful opacity/color feedback */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-slow-spin,
+  .animate-marquee {
+    animation: none;
+  }
+  .hover-reveal-bar {
+    transform: none;
+    transition-delay: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

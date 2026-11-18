@@ -1,0 +1,6 @@
+{
+  "name": "VELORA",
+  "description": "VELORA — Contemporary Avant-Garde Fashion House & Editorial E-Commerce Experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
